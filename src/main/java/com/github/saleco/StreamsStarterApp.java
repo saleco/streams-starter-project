@@ -46,6 +46,9 @@ public class StreamsStarterApp {
 
     KafkaStreams streams = new KafkaStreams(builder, properties);
 
+    //only do this in dev
+    streams.cleanUp();
+
     streams.start();
 
     System.out.println(streams.toString());
