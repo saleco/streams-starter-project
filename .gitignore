@@ -1,0 +1,23 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../:\projetos\streams-starter-project\.idea/dataSources/
+/dataSources.local.xml
+/compiler.xml
+/jarRepositories.xml
+/misc.xml
+/vcs.xml
+
+/streams-starter-project.iml
+/.idea/compiler.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+/target/streams-starter-project-1.0-SNAPSHOT.jar
+/target/streams-starter-project-1.0-SNAPSHOT-jar-with-dependencies.jar
+/target/classes/com/github/saleco/StreamsStarterApp.class
