@@ -1,6 +1,8 @@
-package com.github.saleco;
+package com.github.saleco.bank.balance;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.saleco.bank.balance.BankTransactionsProducer;
+import com.github.saleco.bank.balance.Transaction;
 import org.junit.Test;
 
 import java.io.IOException;

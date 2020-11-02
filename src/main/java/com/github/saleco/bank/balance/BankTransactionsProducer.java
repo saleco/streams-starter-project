@@ -1,4 +1,4 @@
-package com.github.saleco;
+package com.github.saleco.bank.balance;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

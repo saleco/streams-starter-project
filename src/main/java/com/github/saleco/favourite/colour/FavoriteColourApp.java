@@ -1,4 +1,4 @@
-package com.github.saleco;
+package com.github.saleco.favourite.colour;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;

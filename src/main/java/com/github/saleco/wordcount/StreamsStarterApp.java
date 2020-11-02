@@ -1,4 +1,4 @@
-package com.github.saleco;
+package com.github.saleco.wordcount;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;

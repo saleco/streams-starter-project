@@ -15,6 +15,7 @@
 /.idea/misc.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/target
 /target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 /target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 /target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
@@ -24,3 +25,11 @@
 /target/classes/com/github/saleco/BankTransactionsProducer.class
 /target/test-classes/com/github/saleco/BankTransactionsProducerTest.class
 /target/classes/com/github/saleco/Transaction.class
+/target/classes/com/github/saleco/bank/balance/BankBalanceStream.class
+/target/classes/com/github/saleco/bank/balance/BankTransactionsProducer.class
+/target/test-classes/com/github/saleco/bank/balance/BankTransactionsProducerTest.class
+/target/classes/com/github/saleco/favourite/colour/FavoriteColourApp.class
+/target/classes/com/github/saleco/wordcount/StreamsStarterApp.class
+/target/classes/com/github/saleco/bank/balance/Transaction.class
+/target/classes/com/github/saleco/user/event/enricher/UserDataProducer.class
+/target/classes/com/github/saleco/user/event/enricher/UserEventEnricherApp.class
