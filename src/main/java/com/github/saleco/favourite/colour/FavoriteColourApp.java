@@ -4,10 +4,12 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.kstream.KTable;
+import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.kstream.Produced;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -49,7 +51,7 @@ public class FavoriteColourApp {
     //we disable the cache to demonstrate all the "steps" involved in the transformation - not recommended in production
     properties.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, "0");
 
-    KStreamBuilder builder = new KStreamBuilder();
+    StreamsBuilder builder = new StreamsBuilder();
 
     //stream data
     KStream<String, String> textLines = builder.stream("favourite-colours-input");
@@ -71,17 +73,17 @@ public class FavoriteColourApp {
     //count the occurences of colors
     KTable<String, Long> favouriteColours = usersAndColoursTable
         .groupBy((user, color) -> new KeyValue<>(color, color))
-        .count("CountsByColours");
+        .count(Materialized.as("CountsByColours"));
 
     //output the results to the final output topic
-    favouriteColours.to(Serdes.String(), Serdes.Long(), "favourite-colours-output");
+    favouriteColours.toStream().to("favourite-colours-output", Produced.with(Serdes.String(), Serdes.Long()));
 
 
-    KafkaStreams streams = new KafkaStreams(builder, properties);
+    KafkaStreams streams = new KafkaStreams(builder.build(), properties);
 
     streams.start();
 
-    System.out.println(streams.toString());
+    System.out.println(streams.localThreadsMetadata());
 
     //closes the stream application
     Runtime.getRuntime().addShutdownHook(new Thread(streams::close));

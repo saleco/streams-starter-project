@@ -1,30 +1,25 @@
 package com.github.saleco.bank.balance;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.*;
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serde;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.connect.json.JsonDeserializer;
 import org.apache.kafka.connect.json.JsonSerializer;
+import org.apache.kafka.streams.Consumed;
 import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
-import org.apache.kafka.streams.kstream.KGroupedTable;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.kstream.KTable;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Properties;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class BankBalanceStream {
 
@@ -56,10 +51,10 @@ public class BankBalanceStream {
     final Serde<JsonNode> jsonSerde = Serdes.serdeFrom(jsonNodeSerializer, jsonDeserializer);
 
 
-    KStreamBuilder builder = new KStreamBuilder();
+    StreamsBuilder builder = new StreamsBuilder();
 
     //stream data
-    KStream<String, JsonNode> bankTransactions = builder.stream(Serdes.String(), jsonSerde, "bank-transactions");
+    KStream<String, JsonNode> bankTransactions = builder.stream("bank-transactions", Consumed.with(Serdes.String(), jsonSerde));
 
     ObjectNode initialBalance = JsonNodeFactory.instance.objectNode();
     initialBalance.put("count", 0);
@@ -75,7 +70,7 @@ public class BankBalanceStream {
 
     bankBalance.to(Serdes.String(), jsonSerde, "bank-balance-exactly-once");
 
-    KafkaStreams streams = new KafkaStreams(builder, properties);
+    KafkaStreams streams = new KafkaStreams(builder.build(), properties);
     streams.cleanUp();
     streams.start();
 
