@@ -21,3 +21,6 @@
 /target/streams-starter-project-1.0-SNAPSHOT.jar
 /target/streams-starter-project-1.0-SNAPSHOT-jar-with-dependencies.jar
 /target/classes/com/github/saleco/StreamsStarterApp.class
+/target/classes/com/github/saleco/BankTransactionsProducer.class
+/target/test-classes/com/github/saleco/BankTransactionsProducerTest.class
+/target/classes/com/github/saleco/Transaction.class
